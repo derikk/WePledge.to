@@ -1,5 +1,5 @@
-import type { PageServerLoad } from './$types';
-import { pledges } from './data.js';
+import type { PageServerLoad } from "./$types";
+import { pledges } from "./data.js";
 
 export const load = (async () => {
 	return {

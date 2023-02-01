@@ -1,6 +1,6 @@
 <script lang="ts">
-	import PledgeCard from './PledgeCard.svelte';
-	import type { PledgeData } from '../types/pledge.type';
+	import PledgeCard from "./PledgeCard.svelte";
+	import type { PledgeData } from "../types/pledge.type";
 
 	export let pledges: PledgeData[];
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PledgeData } from '../types/pledge.type';
+	import type { PledgeData } from "../types/pledge.type";
 
 	export let pledge: PledgeData;
 </script>
