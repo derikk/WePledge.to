@@ -35,7 +35,7 @@
 					currPledge.title = pledge.name;
 					currPledge.slug = pledge.slug;
 					currPledge.description = pledge.description;
-					currPledge.deadline = new Date('December 17, 1995 03:24:00');//new Date(pledge.resolution);
+					currPledge.deadline = new Date(pledge.resolution * 1000);
 					currPledge.nr = pledge.num_required;
 					currPledge.nc = 0;
 					currPledge.pledgers = [""] as string[];
