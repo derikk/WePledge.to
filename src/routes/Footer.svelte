@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Adverbs from "./Adverbily.svelte";
+	import Adverbily from "./Adverbily.svelte";
 </script>
 
 <footer>
-	Made <Adverbs /> by <a href="https://derikk.com">Derik</a> and
+	Made <Adverbily /> by <a href="https://derikk.com">Derik</a> and
 	<a href="https://andrew.gr">Andrew</a>
 </footer>
 
