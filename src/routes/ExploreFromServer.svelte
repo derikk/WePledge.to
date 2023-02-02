@@ -1,18 +1,9 @@
 <script lang="ts">
-	const SUPABASE_URL = "https://dxxqsxgjhtktuubksoro.supabase.co";
-	const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4eHFzeGdqaHRrdHV1Ymtzb3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzUyODk5ODYsImV4cCI6MTk5MDg2NTk4Nn0.TbSwx-9fy_zVUOdP9xNgjGYkuOeGZFFXt5LB0PYL2uw";
-
-
 	import Explore from "./Explore.svelte";
 	import Adverbily from "./Adverbily.svelte";
 	import type { PledgeData } from "../types/pledge.type";
+	import { supabase } from './Supabase.svelte';
 	
-	import { createClient } from '@supabase/supabase-js'
-	import { dataset_dev } from 'svelte/internal';
-
-	
-	const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
 	console.log(supabase);
 
 	async function getPledges() {
