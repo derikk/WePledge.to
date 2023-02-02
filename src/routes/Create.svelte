@@ -56,7 +56,8 @@
 				slug: slug,
 				description: description,
 				resolution: resolution,
-				num_required: nr
+				num_required: nr,
+				committed: []
 			}
 		]);
 

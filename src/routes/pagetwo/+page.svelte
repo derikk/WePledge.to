@@ -1,31 +1,34 @@
 <script lang="ts">
-    import type { PageData } from './$types';
-    
-    export let data: PageData;
+	import type { PageData } from "./$types";
+
+	export let data: PageData;
 </script>
+
 <svelte:head>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
-    <script>
-        function loginCallback(e) {
-            console.log(jwt_decode(e.credential));
-        }
-    </script>
+	<script src="https://accounts.google.com/gsi/client" async defer></script>
+	<script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
+	<script>
+		function loginCallback(e) {
+			console.log(jwt_decode(e.credential));
+		}
+	</script>
 </svelte:head>
 bananas
-<div id="g_id_onload"
-     data-client_id="351607077506-ohra7t5mqadq6ao8up91j243j5sp66p4.apps.googleusercontent.com"
-     data-context="signin"
-     data-ux_mode="popup"
-     data-callback="loginCallback"
-     data-auto_prompt="false">
-</div>
+<div
+	id="g_id_onload"
+	data-client_id="351607077506-ohra7t5mqadq6ao8up91j243j5sp66p4.apps.googleusercontent.com"
+	data-context="signin"
+	data-ux_mode="popup"
+	data-callback="loginCallback"
+	data-auto_prompt="false"
+/>
 
-<div class="g_id_signin"
-     data-type="standard"
-     data-shape="rectangular"
-     data-theme="outline"
-     data-text="signin_with"
-     data-size="large"
-     data-logo_alignment="left">
-</div>
+<div
+	class="g_id_signin"
+	data-type="standard"
+	data-shape="rectangular"
+	data-theme="outline"
+	data-text="signin_with"
+	data-size="large"
+	data-logo_alignment="left"
+/>

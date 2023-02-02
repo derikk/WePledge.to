@@ -2,8 +2,8 @@
 	import Explore from "./Explore.svelte";
 	import Adverbily from "./Adverbily.svelte";
 	import type { PledgeData } from "../types/pledge.type";
-	import { supabase } from './Supabase.svelte';
-	
+	import { supabase } from "./Supabase.svelte";
+
 	console.log(supabase);
 
 	async function getPledges() {
