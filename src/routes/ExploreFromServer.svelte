@@ -9,7 +9,7 @@
 	async function getPledges() {
 		console.log(supabase);
 
-		let { data: pledges, error } = await supabase.from("pledges").select("*");
+		let { data: pledges, error } = await supabase.from("pledges").select();
 
 		let pledgeDataSet = [];
 

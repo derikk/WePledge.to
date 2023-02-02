@@ -8,8 +8,8 @@
 	function share() {
 		if (navigator.share) {
 			navigator.share({
-				title: pledge.title,
-				text: `Join me and pledge to "${pledge.title}"!`,
+				title: pledge.name,
+				text: `Join me and pledge to "${pledge.name}"!`,
 				url: $page.url.toString()
 			});
 		} else {
@@ -18,21 +18,24 @@
 	}
 </script>
 
-<h1>{pledge.title}</h1>
+<h1>{pledge.name}</h1>
 <p>{pledge.description}</p>
 
-<meter value={pledge.nc} min="0" max={pledge.nr} />
+<meter value={pledge.committed.length} min="0" max={pledge.num_required} />
 
 <details>
-	<summary><h3>People committed: {pledge.nc}/{pledge.nr}</h3></summary>
+	<summary>
+		<h3>People committed: {pledge.committed.length}/{pledge.num_required}</h3>
+	</summary>
 	<ol>
-		{#each pledge.pledgers as pledger}
+		{#each pledge.committed as pledger}
 			<li>{pledger}</li>
 		{/each}
 	</ol>
 </details>
 <h3>
-	Must commit by {pledge.deadline.toLocaleDateString()} at {pledge.deadline.toLocaleTimeString()}
+	Must commit by {new Date(pledge.resolution * 1000).toLocaleDateString()}
+	at {new Date(pledge.resolution * 1000).toLocaleTimeString()}
 </h3>
 
 <form method="POST" action="?/commit">

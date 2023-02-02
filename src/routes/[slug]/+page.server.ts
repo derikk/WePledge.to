@@ -1,13 +1,16 @@
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad, Actions } from "./$types";
-// import { pledges } from "../data.js";
+import { supabase } from "../Supabase.svelte";
 
 export const load = (async ({ params }) => {
-	// const pledge = pledges.find((pledge) => pledge.slug === params.slug);
-	// if (!pledge) throw error(404);
-	// return {
-	// pledge
-	// };
+	let { data: pledge } = await supabase.from("pledges").select().eq("slug", params.slug).limit(1);
+
+	pledge = pledge?.[0];
+	if (!pledge) throw error(404);
+	
+	return {
+		pledge
+	};
 }) satisfies PageServerLoad;
 
 export const actions = {
