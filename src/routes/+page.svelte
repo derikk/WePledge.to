@@ -8,7 +8,7 @@
 	export let data: PageData;
 </script>
 
+<Create />
 <Intro />
 <ExploreFromServer />
-<Create />
 <Footer />
