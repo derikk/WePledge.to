@@ -7,7 +7,7 @@ export const load = (async ({ params }) => {
 
 	pledge = pledge?.[0];
 	if (!pledge) throw error(404);
-	
+
 	return {
 		pledge
 	};
