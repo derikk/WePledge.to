@@ -6,44 +6,21 @@
 
 <svelte:head>
 	<script src="https://accounts.google.com/gsi/client" async defer></script>
-	<script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
-	<script>
-		function handleCredentialResponse(response) {
-			console.log("Encoded JWT ID token: " + response.credential);
-
-			console.log(jwt_decode(response.credential));
-		}
-		window.onload = function () {
-			google.accounts.id.initialize({
-				client_id: "351607077506-ohra7t5mqadq6ao8up91j243j5sp66p4.apps.googleusercontent.com",
-				callback: handleCredentialResponse
-			});
-			google.accounts.id.renderButton(
-				document.getElementById("buttonDiv"),
-				{ theme: "outline", size: "large" } // customization attributes
-			);
-			// google.accounts.id.prompt(); // also display the One Tap dialog
-		};
-	</script>
 </svelte:head>
-bananas
 
-<div id="buttonDiv"></div> 
-<!-- <div
-	id="g_id_onload"
-	data-client_id="351607077506-ohra7t5mqadq6ao8up91j243j5sp66p4.apps.googleusercontent.com"
-	data-context="signin"
-	data-ux_mode="popup"
-	data-callback="loginCallback"
-	data-auto_prompt="false"
-/>
+<div id="g_id_onload"
+     data-client_id="351607077506-ohra7t5mqadq6ao8up91j243j5sp66p4.apps.googleusercontent.com"
+     data-context="signin"
+     data-ux_mode="popup"
+     data-login_uri="http://localhost:5173/login-callback"
+     data-auto_prompt="false">
+</div>
 
-<div
-	class="g_id_signin"
-	data-type="standard"
-	data-shape="rectangular"
-	data-theme="outline"
-	data-text="signin_with"
-	data-size="large"
-	data-logo_alignment="left"
-/> -->
+<div class="g_id_signin"
+     data-type="standard"
+     data-shape="rectangular"
+     data-theme="outline"
+     data-text="signin_with"
+     data-size="large"
+     data-logo_alignment="left">
+</div>
