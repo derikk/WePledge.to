@@ -32,6 +32,7 @@
 		"@supabase/supabase-js": "^2.7.0",
 		"google-auth-library": "^8.7.0",
 		"jose": "^4.11.4",
-		"jwt-decode": "^3.1.2"
+		"jwt-decode": "^3.1.2",
+		"svelte-kit-cookie-session": "^3.3.2"
 	}
 }

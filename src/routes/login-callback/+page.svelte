@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { PageData } from "./$types";
-
+	import type { PageData } from './$types';
 	export let data: PageData;
 </script>
 
-hi!
+<!-- <span id="views">{data.views}</span> -->
+<!-- <span id="session-store-views">{data.session?.counter}</span> -->

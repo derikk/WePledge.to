@@ -6,7 +6,12 @@
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
+
+	import { page } from '$app/stores';
+	$: session = $page.data.session;
 </script>
+
+<span id="hi-user">Hello, {data.session?.given_name}!</span>
 
 <Create />
 <Intro />
