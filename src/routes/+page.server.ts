@@ -8,15 +8,14 @@ import type { PageData } from "@sveltejs/kit";
 // 	};
 // }) satisfies PageServerLoad;
 
-export const load = (async( {parent} ) => {
+export const load = (async ({ parent }) => {
 	const { session } = await parent();
 	// or
 	// locals.session.data.session;
 
-
 	// Already logged in:
 	// if(session.userId) {
-		// throw redirect(302, '/')
+	// throw redirect(302, '/')
 	// }
 
 	return {};
