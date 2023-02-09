@@ -42,8 +42,11 @@
 		bottom: 0;
 		background-color: grey;
 		width: 100%;
+		text-align: center;
 	}
 	#login-button {
 		max-width: 20%;
+		text-align: center;
+		margin: auto 0;
 	}
 </style>
