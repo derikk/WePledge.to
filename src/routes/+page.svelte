@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
 	import Intro from "./Intro.svelte";
-	import ExploreFromServer from "./ExploreFromServer.svelte";
+	import Explore from "./Explore.svelte";
 	import Footer from "./Footer.svelte";
-	import Create from "./Create.svelte";
-	import Login from "./Login.svelte";
+	import Adverbily from "./Adverbily.svelte";
+	import type { PageData } from "./$types";
 
 	export let data: PageData;
 
@@ -12,9 +12,15 @@
 	$: session = $page.data.session;
 </script>
 
-<Create />
 <Intro />
-<ExploreFromServer />
+<a href="/create">Create a pledge</a>
+{#await data.pledges}
+	<p>Loading pledges <Adverbily /></p>
+{:then pledgesList}
+	<Explore pledges={pledgesList ?? []} />
+{:catch error}
+	<p style="color: red">{error.message}</p>
+{/await}
 <Footer />
 {#if data.session?.given_name == undefined}
 	<Login />
