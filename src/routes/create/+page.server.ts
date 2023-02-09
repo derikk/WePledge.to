@@ -41,7 +41,7 @@ export const actions = {
 		}
 
 		const resolution = Math.floor(new Date(deadline).getTime() / 1000 + 59);
-		if (resolution < Date.now()) {
+		if (resolution < Date.now() / 1000) {
 			return fail(400, { name, description, error: "Deadline must be in the future" });
 		}
 
