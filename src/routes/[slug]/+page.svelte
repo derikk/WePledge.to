@@ -1,9 +1,12 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
 	import { page } from "$app/stores";
+	$: session = $page.data.session;
 
 	export let data: PageData;
 	const pledge = data.pledge;
+  	export let pledged:boolean = false;
+
 
 	function share() {
 		if (navigator.share) {
@@ -40,14 +43,22 @@
 	at {new Date(pledge.resolution * 1000).toLocaleTimeString()}
 </h3>
 
+{#if data.session?.given_name == undefined}
+	<p><a href="pagetwo/">log in to pledge</a></p>
+{:else}
 <form method="POST" action="?/commit">
 	<fieldset>
 		<legend>Commit to this event</legend>
 		<input type="hidden" name="slug" value={pledge.slug} />
-		<label>Email: <input type="email" name="email" required /></label>
+		<input type="hidden" name="user_id" value={data.session?.given_name} />
+		{#if !pledged}
 		<button>Pledge</button>
+		{:else}
+		<p>alredy pledged!</p>
+		{/if}
 	</fieldset>
 </form>
+{/if}
 
 <button on:click={share}>Share</button>
 

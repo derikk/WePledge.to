@@ -12,6 +12,9 @@ export const load = (async ({ params }) => {
 export const actions = {
 	commit: async ({ request }) => {
 		const data = await request.formData();
+
+		console.log(data.get('user_id') + " is committing to this event!!!");
+		const pledged = true;
 		// TODO: submit pledge to DB
 	}
 } satisfies Actions;
