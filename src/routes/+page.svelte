@@ -24,8 +24,4 @@
 	<p style="color: red">{error.message}</p>
 {/await}
 <Footer />
-<!-- {#if data.session?.given_name == undefined} -->
 <Login userdata={data}/>
-<!-- {:else} -->
-	<!-- <p>Hello, {data.session?.given_name}!</p> -->
-<!-- {/if} -->
