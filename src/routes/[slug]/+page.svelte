@@ -19,7 +19,9 @@
 </script>
 
 <h1>{pledge.name}</h1>
-<p>{pledge.description}</p>
+{#if pledge.description}
+	<p>{pledge.description}</p>
+{/if}
 
 <meter value={pledge.committed.length} min="0" max={pledge.num_required} />
 
