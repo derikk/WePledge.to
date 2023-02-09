@@ -1,4 +1,5 @@
 <script lang="ts">
+	export let userdata:string;
 </script>
 
 <svelte:head>
@@ -6,6 +7,8 @@
 </svelte:head>
 
 <div id="user-footer">
+
+{#if userdata?.session?.given_name == undefined}
 	<div id="login-button">
 		<div
 			id="g_id_onload"
@@ -26,6 +29,9 @@
 			data-logo_alignment="left"
 		/>
 	</div>
+{:else}
+	<p>Hello, {userdata.session?.given_name}!</p>
+{/if}
 </div>
 
 <style>

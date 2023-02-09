@@ -10,14 +10,16 @@
 
 	import { page } from "$app/stores";
 	$: session = $page.data.session;
+
+	let sexporn = "69";
 </script>
 
 <Create />
 <Intro />
 <ExploreFromServer />
 <Footer />
-{#if data.session?.given_name == undefined}
-	<Login />
-{:else}
-	<p>Hello, {data.session?.given_name}!</p>
-{/if}
+<!-- {#if data.session?.given_name == undefined} -->
+<Login userdata={data}/>
+<!-- {:else} -->
+	<!-- <p>Hello, {data.session?.given_name}!</p> -->
+<!-- {/if} -->
