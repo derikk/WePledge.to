@@ -4,6 +4,7 @@
 	import Explore from "./Explore.svelte";
 	import Footer from "./Footer.svelte";
 	import Adverbily from "./Adverbily.svelte";
+	import Login from "./Login.svelte";
 	import type { PageData } from "./$types";
 
 	export let data: PageData;
