@@ -1,4 +1,4 @@
-import { handleSession } from 'svelte-kit-cookie-session';
+import { handleSession } from "svelte-kit-cookie-session";
 
 // You can do it like this, without passing a own handle function
 export const handle = handleSession({
@@ -6,5 +6,5 @@ export const handle = handleSession({
 	// init: (event) => ({
 	// 	views: 0
 	// }),
-	secret: 'pJw3vbviDuRuTXkezqbMyFVBSwuw7Sp3'
+	secret: "pJw3vbviDuRuTXkezqbMyFVBSwuw7Sp3"
 });

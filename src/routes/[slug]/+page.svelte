@@ -5,8 +5,7 @@
 
 	export let data: PageData;
 	const pledge = data.pledge;
-  	export let pledged:boolean = false;
-
+	export let pledged: boolean = false;
 
 	function share() {
 		if (navigator.share) {
@@ -46,18 +45,18 @@
 {#if data.session?.given_name == undefined}
 	<p><a href="pagetwo/">log in to pledge</a></p>
 {:else}
-<form method="POST" action="?/commit">
-	<fieldset>
-		<legend>Commit to this event</legend>
-		<input type="hidden" name="slug" value={pledge.slug} />
-		<input type="hidden" name="user_id" value={data.session?.given_name} />
-		{#if !pledged}
-		<button>Pledge</button>
-		{:else}
-		<p>alredy pledged!</p>
-		{/if}
-	</fieldset>
-</form>
+	<form method="POST" action="?/commit">
+		<fieldset>
+			<legend>Commit to this event</legend>
+			<input type="hidden" name="slug" value={pledge.slug} />
+			<input type="hidden" name="user_id" value={data.session?.given_name} />
+			{#if !pledged}
+				<button>Pledge</button>
+			{:else}
+				<p>alredy pledged!</p>
+			{/if}
+		</fieldset>
+	</form>
 {/if}
 
 <button on:click={share}>Share</button>
