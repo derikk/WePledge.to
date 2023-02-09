@@ -11,7 +11,11 @@
 	$: session = $page.data.session;
 </script>
 
-<span id="hi-user">Hello, {data.session?.given_name}!</span>
+{#if data.session?.given_name == undefined}
+	<p><a href="pagetwo/">log in!</a></p>
+{:else}
+	<p>Hello, {data.session?.given_name}!</p>
+{/if}
 
 <Create />
 <Intro />
