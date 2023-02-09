@@ -13,7 +13,7 @@
 	data-client_id="351607077506-ohra7t5mqadq6ao8up91j243j5sp66p4.apps.googleusercontent.com"
 	data-context="signin"
 	data-ux_mode="popup"
-	data-login_uri="http://localhost:5173/login-callback"
+	data-login_uri="/login-callback"
 	data-auto_prompt="false"
 />
 
