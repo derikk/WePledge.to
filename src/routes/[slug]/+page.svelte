@@ -2,6 +2,7 @@
 	import type { PageData } from "./$types";
 	import { page } from "$app/stores";
 	$: session = $page.data.session;
+	import Login from "../Login.svelte";
 
 	export let data: PageData;
 	const pledge = data.pledge;
@@ -18,6 +19,8 @@
 			alert("Sharing not supported :(");
 		}
 	}
+
+	let sexporn = "69";
 </script>
 
 <h1>{pledge.name}</h1>
@@ -43,7 +46,7 @@
 </h3>
 
 {#if data.session?.given_name == undefined}
-	<p><a href="pagetwo/">log in to pledge</a></p>
+	<p>gotta llog in to pledge</p>
 {:else}
 	<form method="POST" action="?/commit">
 		<fieldset>
@@ -58,6 +61,9 @@
 		</fieldset>
 	</form>
 {/if}
+
+
+<Login userdata={data}/>
 
 <button on:click={share}>Share</button>
 
