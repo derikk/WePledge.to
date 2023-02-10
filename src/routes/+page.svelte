@@ -11,7 +11,7 @@
 	import { page } from "$app/stores";
 	$: session = $page.data.session;
 
-	let sexporn = "69";
+	// let sexporn = "69";
 
 	// console.log("aaa");
 	// console.log(data);
