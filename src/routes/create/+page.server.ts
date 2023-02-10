@@ -55,7 +55,7 @@ export const actions = {
 				name,
 				description,
 				deadline,
-				error: "Min number must be less than 1 million"
+				error: "Min number must be less than 1 million (contact sales to run a million-man march)"
 			});
 		}
 

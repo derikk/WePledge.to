@@ -41,3 +41,22 @@ export const insertRow = async (
 		committed: []
 	});
 };
+
+export const addPledge = async (
+	email: string,
+	slug: string,
+) => {
+	let pledge:PledgeData = await getPledge(slug) as PledgeData;
+
+	console.log(pledge);
+
+	let current_committed:string[] = eval(pledge.committed);
+
+	current_committed.push(email);
+
+	console.log(current_committed);
+
+	return await db.from("pledges").update({
+		committed: current_committed
+	}).eq('slug', slug);
+};

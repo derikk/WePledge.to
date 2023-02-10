@@ -31,7 +31,7 @@
 	}
 </script>
 
-<Login userdata={senddata}/>
+<Login userdata={senddata} />
 
 <h1>{pledge.name}</h1>
 {#if pledge.description}
@@ -62,7 +62,8 @@
 		<fieldset>
 			<legend>Commit to this event</legend>
 			<input type="hidden" name="slug" value={pledge.slug} />
-			<input type="hidden" name="user_id" value={data.session?.given_name} />
+			<input type="hidden" name="user_id" value={senddata["name"]} />
+			<input type="hidden" name="user_email" value={senddata["email"]} />
 			{#if !pledged}
 				<button>Pledge</button>
 			{:else}
@@ -71,7 +72,6 @@
 		</fieldset>
 	</form>
 {/if}
-
 
 <button on:click={share}>Share</button>
 
