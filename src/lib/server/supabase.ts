@@ -18,6 +18,7 @@ export const getPledges = async () => {
 export const getPledge = async (slug: string) => {
 	const { data, error } = await db.from("pledges").select().eq("slug", slug).limit(1).maybeSingle();
 	if (error) throw new Error(error.message);
+	data.committed = eval(data.committed);
 	return data as PledgeData;
 };
 

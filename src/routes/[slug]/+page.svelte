@@ -64,8 +64,15 @@
 			<input type="hidden" name="slug" value={pledge.slug} />
 			<input type="hidden" name="user_id" value={senddata["name"]} />
 			<input type="hidden" name="user_email" value={senddata["email"]} />
-			{#if !pledged}
+			{#if !pledge.committed.includes(senddata["email"])}
+			<p style="font-weight: normal;">By committing to this event, you promise to actually do the collective action if {pledge.num_required} people do as well.</p>
+
+			<p style="font-weight: normal;">Don't commit to something you're not willing to do!!</p>
+			
+			<details>
+				<summary>Agree to terms and pledge</summary>
 				<button>Pledge</button>
+			</details>
 			{:else}
 				<p>alredy pledged!</p>
 			{/if}
