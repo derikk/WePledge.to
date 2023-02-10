@@ -29,7 +29,7 @@
 
 <Login userdata={senddata} />
 <Intro />
-<a href="/create">Create a pledge</a>
+<a href="/create">Create a pledge ></a>
 {#await data.pledges}
 	<p>Loading pledges <Adverbily /></p>
 {:then pledgesList}
