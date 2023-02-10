@@ -12,6 +12,8 @@
 	$: session = $page.data.session;
 
 	let sexporn = "69";
+
+	console.log(data.session.user_google_info);
 </script>
 
 <Intro />
@@ -24,4 +26,5 @@
 	<p style="color: red">{error.message}</p>
 {/await}
 <Footer />
-<Login userdata={data}/>
+<p>{data.session.user_google_info}</p>
+<Login userdata={JSON.parse(data.session.user_google_info)}/>

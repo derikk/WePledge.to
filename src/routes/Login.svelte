@@ -8,7 +8,7 @@
 
 <div id="user-footer">
 
-{#if userdata?.session?.given_name == undefined}
+{#if userdata == undefined}
 	<div id="login-button">
 		<div
 			id="g_id_onload"
@@ -30,7 +30,8 @@
 		/>
 	</div>
 {:else}
-	<p>Hello, {userdata.session?.given_name}!</p>
+	<p>Hello, {userdata['name']}!</p>
+	<img src="{userdata['picture']}" alt="a cool image" id="user-image" />
 {/if}
 </div>
 
@@ -48,5 +49,8 @@
 		max-width: 20%;
 		text-align: center;
 		margin: auto 0;
+	}
+	#user-image {
+		border-radius: 50px;
 	}
 </style>

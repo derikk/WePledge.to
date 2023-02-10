@@ -8,9 +8,9 @@ const CLIENT_ID = "351607077506-ohra7t5mqadq6ao8up91j243j5sp66p4.apps.googleuser
 
 export const actions = {
 	default: async ({ cookies, request, locals }) => {
-		const { given_name = "" } = locals.session.data;
+		const { user_google_info = "" } = locals.session.data;
 
-		await locals.session.set({ given_name: "someone" });
+		await locals.session.set({ user_google_info: "{}" });
 
 		const data = await request.formData();
 		let cred = data.get("credential");
@@ -35,7 +35,7 @@ export const actions = {
 			console.log(payload);
 			const userid = payload["sub"];
 
-			await locals.session.set({ given_name: payload["given_name"] });
+			await locals.session.set({ user_google_info: JSON.stringify(payload) });
 			// await locals.session.set({ family_name: payload['family_name'] });
 			// await locals.session.set({ userid: userid });
 
