@@ -4,5 +4,5 @@ export type PledgeData = {
 	description?: string;
 	deadline: Date;
 	num_required: number;
-	pledgers: string[];
+	committed: string;
 };

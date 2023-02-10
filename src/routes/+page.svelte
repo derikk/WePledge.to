@@ -11,9 +11,23 @@
 	import { page } from "$app/stores";
 	$: session = $page.data.session;
 
-	let sexporn = "69";
+	// let sexporn = "69";
+
+	// console.log("aaa");
+	// console.log(data);
+	// console.log("bbb");
+	// console.log(data.session.user_google_info);
+
+	let senddata = "";
+
+	if (data.session?.user_google_info == undefined) {
+		senddata = JSON.parse("{}");
+	} else {
+		senddata = JSON.parse(data.session.user_google_info);
+	}
 </script>
 
+<Login userdata={senddata} />
 <Intro />
 <a href="/create">Create a pledge</a>
 {#await data.pledges}
@@ -24,4 +38,4 @@
 	<p style="color: red">{error.message}</p>
 {/await}
 <Footer />
-<Login userdata={data}/>
+<!-- <p>{senddata}</p>

@@ -18,6 +18,7 @@ export const getPledges = async () => {
 export const getPledge = async (slug: string) => {
 	const { data, error } = await db.from("pledges").select().eq("slug", slug).limit(1).maybeSingle();
 	if (error) throw new Error(error.message);
+	data.committed = eval(data.committed);
 	return data as PledgeData;
 };
 
@@ -40,4 +41,23 @@ export const insertRow = async (
 		num_required,
 		committed: []
 	});
+};
+
+export const addPledge = async (
+	email: string,
+	slug: string,
+) => {
+	let pledge:PledgeData = await getPledge(slug) as PledgeData;
+
+	console.log(pledge);
+
+	let current_committed:string[] = eval(pledge.committed);
+
+	current_committed.push(email);
+
+	console.log(current_committed);
+
+	return await db.from("pledges").update({
+		committed: current_committed
+	}).eq('slug', slug);
 };

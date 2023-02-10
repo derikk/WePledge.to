@@ -21,7 +21,17 @@
 	}
 
 	let sexporn = "69";
+
+	let senddata = "";
+
+	if (data.session?.user_google_info == undefined) {
+		senddata = JSON.parse("{}");
+	} else {
+		senddata = JSON.parse(data.session.user_google_info);
+	}
 </script>
+
+<Login userdata={senddata} />
 
 <h1>{pledge.name}</h1>
 {#if pledge.description}
@@ -45,25 +55,30 @@
 	at {new Date(pledge.resolution * 1000).toLocaleTimeString()}
 </h3>
 
-{#if data.session?.given_name == undefined}
+{#if data.session?.user_google_info == undefined}
 	<p>gotta llog in to pledge</p>
 {:else}
 	<form method="POST" action="?/commit">
 		<fieldset>
 			<legend>Commit to this event</legend>
 			<input type="hidden" name="slug" value={pledge.slug} />
-			<input type="hidden" name="user_id" value={data.session?.given_name} />
-			{#if !pledged}
+			<input type="hidden" name="user_id" value={senddata["name"]} />
+			<input type="hidden" name="user_email" value={senddata["email"]} />
+			{#if !pledge.committed.includes(senddata["email"])}
+			<p style="font-weight: normal;">By committing to this event, you promise to actually do the collective action if {pledge.num_required} people do as well.</p>
+
+			<p style="font-weight: normal;">Don't commit to something you're not willing to do!!</p>
+			
+			<details>
+				<summary>Agree to terms and pledge</summary>
 				<button>Pledge</button>
+			</details>
 			{:else}
 				<p>alredy pledged!</p>
 			{/if}
 		</fieldset>
 	</form>
 {/if}
-
-
-<Login userdata={data}/>
 
 <button on:click={share}>Share</button>
 
