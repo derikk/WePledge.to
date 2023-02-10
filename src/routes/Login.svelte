@@ -8,7 +8,7 @@
 
 <div id="user-footer">
 
-{#if userdata == undefined}
+{#if userdata['name'] == undefined}
 	<div id="login-button">
 		<div
 			id="g_id_onload"

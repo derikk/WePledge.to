@@ -13,7 +13,18 @@
 
 	let sexporn = "69";
 
-	console.log(data.session.user_google_info);
+	// console.log("aaa");
+	// console.log(data);
+	// console.log("bbb");
+	// console.log(data.session.user_google_info);
+
+	let senddata = "";
+
+	if (data.session?.user_google_info == undefined) {
+		senddata = JSON.parse("{}");
+	} else {
+		senddata = JSON.parse(data.session.user_google_info);
+	}
 </script>
 
 <Intro />
@@ -26,5 +37,5 @@
 	<p style="color: red">{error.message}</p>
 {/await}
 <Footer />
-<p>{data.session.user_google_info}</p>
-<Login userdata={JSON.parse(data.session.user_google_info)}/>
+<!-- <p>{senddata}</p> -->
+<Login userdata={senddata}/>
