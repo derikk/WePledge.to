@@ -37,8 +37,7 @@
 
 <style>
 	#user-footer {
-		position: fixed;
-
+		/* position: fixed; */
 		left: 0;
 		top: 0;
 		background-color: grey;

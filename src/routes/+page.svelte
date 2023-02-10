@@ -27,6 +27,7 @@
 	}
 </script>
 
+<Login userdata={senddata}/>
 <Intro />
 <a href="/create">Create a pledge</a>
 {#await data.pledges}
@@ -38,4 +39,3 @@
 {/await}
 <Footer />
 <!-- <p>{senddata}</p> -->
-<Login userdata={senddata}/>
