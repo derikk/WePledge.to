@@ -1,48 +1,69 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
 	import { page } from "$app/stores";
+	$: session = $page.data.session;
+	import Login from "../Login.svelte";
 
 	export let data: PageData;
 	const pledge = data.pledge;
+	export let pledged: boolean = false;
 
 	function share() {
 		if (navigator.share) {
 			navigator.share({
-				title: pledge.title,
-				text: `Join me and pledge to "${pledge.title}"!`,
+				title: pledge.name,
+				text: `Join me and pledge to "${pledge.name}"!`,
 				url: $page.url.toString()
 			});
 		} else {
 			alert("Sharing not supported :(");
 		}
 	}
+
+	let sexporn = "69";
 </script>
 
-<h1>{pledge.title}</h1>
-<p>{pledge.description}</p>
+<h1>{pledge.name}</h1>
+{#if pledge.description}
+	<p>{pledge.description}</p>
+{/if}
 
-<meter value={pledge.nc} min="0" max={pledge.nr} />
+<meter value={pledge.committed.length} min="0" max={pledge.num_required} />
 
 <details>
-	<summary><h3>People committed: {pledge.nc}/{pledge.nr}</h3></summary>
+	<summary>
+		<h3>People committed: {pledge.committed.length}/{pledge.num_required}</h3>
+	</summary>
 	<ol>
-		{#each pledge.pledgers as pledger}
+		{#each pledge.committed as pledger}
 			<li>{pledger}</li>
 		{/each}
 	</ol>
 </details>
 <h3>
-	Must commit by {pledge.deadline.toLocaleDateString()} at {pledge.deadline.toLocaleTimeString()}
+	Must commit by {new Date(pledge.resolution * 1000).toLocaleDateString()}
+	at {new Date(pledge.resolution * 1000).toLocaleTimeString()}
 </h3>
 
-<form method="POST" action="?/commit">
-	<fieldset>
-		<legend>Commit to this event</legend>
-		<input type="hidden" name="slug" value={pledge.slug} />
-		<label>Email: <input type="email" name="email" required /></label>
-		<button>Pledge</button>
-	</fieldset>
-</form>
+{#if data.session?.given_name == undefined}
+	<p>gotta llog in to pledge</p>
+{:else}
+	<form method="POST" action="?/commit">
+		<fieldset>
+			<legend>Commit to this event</legend>
+			<input type="hidden" name="slug" value={pledge.slug} />
+			<input type="hidden" name="user_id" value={data.session?.given_name} />
+			{#if !pledged}
+				<button>Pledge</button>
+			{:else}
+				<p>alredy pledged!</p>
+			{/if}
+		</fieldset>
+	</form>
+{/if}
+
+
+<Login userdata={data}/>
 
 <button on:click={share}>Share</button>
 
