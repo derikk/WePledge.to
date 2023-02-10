@@ -38,4 +38,4 @@
 	<p style="color: red">{error.message}</p>
 {/await}
 <Footer />
-<!-- <p>{senddata}</p>
+<!-- <p>{senddata}</p> -->
