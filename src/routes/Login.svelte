@@ -40,7 +40,7 @@
 		position: fixed;
 
 		left: 0;
-		bottom: 0;
+		top: 0;
 		background-color: grey;
 		width: 100%;
 		text-align: center;
