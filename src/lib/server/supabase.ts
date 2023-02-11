@@ -12,14 +12,14 @@ export const getPledges = async () => {
 	if (error) throw new Error(error.message);
 	if (!pledges) return [];
 
-	return pledges.map((pledge) => ({ ...pledge, deadline: new Date(pledge.resolution * 1000) }));
+	return pledges.map((pledge) => ({ ...pledge, deadline: new Date(pledge.resolution * 1000) })) as PledgeData[];
 };
 
 export const getPledge = async (slug: string) => {
 	const { data, error } = await db.from("pledges").select().eq("slug", slug).limit(1).maybeSingle();
 	if (error) throw new Error(error.message);
 	data.committed = eval(data.committed);
-	return data as PledgeData;
+	return { ...data, deadline: new Date(data.resolution * 1000) } as PledgeData;
 };
 
 export const slugExists = async (slug: string) => {
@@ -43,21 +43,17 @@ export const insertRow = async (
 	});
 };
 
-export const addPledge = async (
-	email: string,
-	slug: string,
-) => {
-	let pledge:PledgeData = await getPledge(slug) as PledgeData;
+export const addPledge = async (email: string, slug: string) => {
+	let pledge: PledgeData = await getPledge(slug);
 
-	console.log(pledge);
-
-	let current_committed:string[] = eval(pledge.committed);
+	let current_committed: string[] = eval(pledge.committed);
 
 	current_committed.push(email);
 
-	console.log(current_committed);
-
-	return await db.from("pledges").update({
-		committed: current_committed
-	}).eq('slug', slug);
+	return await db
+		.from("pledges")
+		.update({
+			committed: current_committed
+		})
+		.eq("slug", slug);
 };

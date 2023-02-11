@@ -22,11 +22,8 @@ export const actions = {
 			// this is bad
 			throw redirect(302, "https://controlc.com/7c3d1b58");
 		}
-		const pledged = true;
 
-		console.log(params.slug);
-
-		// TODO: submit pledge to DB
+		// Submit pledge to DB
 		addPledge(submitted_email, params.slug);
 	}
 } satisfies Actions;
