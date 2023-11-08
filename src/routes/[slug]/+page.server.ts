@@ -1,6 +1,6 @@
-import { error } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import type { PageServerLoad, Actions } from "./$types";
-import { getPledge } from "$lib/server/supabase";
+import { getPledge, addPledge } from "$lib/server/supabase";
 
 export const load = (async ({ params }) => {
 	const pledge = await getPledge(params.slug);
@@ -10,11 +10,15 @@ export const load = (async ({ params }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	commit: async ({ request }) => {
-		const data = await request.formData();
+	commit: async ({ locals, params }) => {
+		const email = await locals.getSession().then((session) => session?.user?.email);
 
-		console.log(data.get("user_id") + " is committing to this event!!!");
-		const pledged = true;
-		// TODO: submit pledge to DB
+		if (email) {
+			// Submit pledge to DB
+			addPledge(email, params.slug);
+		} else {
+			// Redirect to login
+			throw redirect(303, "/auth/signin");
+		}
 	}
 } satisfies Actions;

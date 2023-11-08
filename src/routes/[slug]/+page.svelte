@@ -1,12 +1,14 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
+	import type { PledgeData } from "$lib/types/pledge.type";
 	import { page } from "$app/stores";
-	$: session = $page.data.session;
-	import Login from "../Login.svelte";
+	
+	import SignInButton from "$lib/SignInButton.svelte";
 
 	export let data: PageData;
-	const pledge = data.pledge;
-	export let pledged: boolean = false;
+	const pledge = data.pledge as PledgeData;
+
+	$: session = $page.data.session;
 
 	function share() {
 		if (navigator.share) {
@@ -19,8 +21,6 @@
 			alert("Sharing not supported :(");
 		}
 	}
-
-	let sexporn = "69";
 </script>
 
 <h1>{pledge.name}</h1>
@@ -41,29 +41,36 @@
 	</ol>
 </details>
 <h3>
-	Must commit by {new Date(pledge.resolution * 1000).toLocaleDateString()}
-	at {new Date(pledge.resolution * 1000).toLocaleTimeString()}
+	Must commit by {pledge.deadline.toLocaleDateString()}
+	at {pledge.deadline.toLocaleTimeString()}
 </h3>
 
-{#if data.session?.given_name == undefined}
-	<p>gotta llog in to pledge</p>
-{:else}
+{#if session}
 	<form method="POST" action="?/commit">
 		<fieldset>
 			<legend>Commit to this event</legend>
 			<input type="hidden" name="slug" value={pledge.slug} />
-			<input type="hidden" name="user_id" value={data.session?.given_name} />
-			{#if !pledged}
-				<button>Pledge</button>
+			{#if !pledge.committed.includes(session.user.email)}
+				<p style="font-weight: normal;">
+					By committing to this event, you promise to actually do the collective action if {pledge.num_required}
+					people pledge to as well.
+				</p>
+
+				<p style="font-weight: normal;">Don't commit to something you're not willing to do!!</p>
+
+				<details>
+					<summary>Agree to terms and pledge</summary>
+					<button>Pledge</button>
+				</details>
 			{:else}
-				<p>alredy pledged!</p>
+				<p>You've already pledged!</p>
 			{/if}
 		</fieldset>
 	</form>
+{:else}
+	<p>Sign in to pledge!</p>
+	<SignInButton />
 {/if}
-
-
-<Login userdata={data}/>
 
 <button on:click={share}>Share</button>
 

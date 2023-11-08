@@ -3,7 +3,7 @@
 	export const nextWeek = new Date();
 	nextWeek.setDate(today.getDate() + 7);
 
-	export let form;
+	export let form: any;
 </script>
 
 <h2>Create an event</h2>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Adverbily from "./Adverbily.svelte";
+	import Adverbily from "$lib/Adverbily.svelte";
 </script>
 
 <footer>
