@@ -1,10 +1,17 @@
-import { handleSession } from "svelte-kit-cookie-session";
+import { SvelteKitAuth } from "@auth/sveltekit";
+import GoogleProvider from "@auth/core/providers/google";
+import {
+	GOOGLE_CLIENT_ID,
+	GOOGLE_CLIENT_SECRET,
+	SUPABASE_URL,
+	SUPABASE_KEY
+} from "$env/static/private";
+import { SupabaseAdapter } from "@auth/supabase-adapter";
 
-// You can do it like this, without passing a own handle function
-export const handle = handleSession({
-	// Optional initial state of the session, default is an empty object {}
-	// init: (event) => ({
-	// 	views: 0
-	// }),
-	secret: "pJw3vbviDuRuTXkezqbMyFVBSwuw7Sp3"
+export const handle = SvelteKitAuth({
+	providers: [GoogleProvider({ clientId: GOOGLE_CLIENT_ID, clientSecret: GOOGLE_CLIENT_SECRET })],
+	// adapter: SupabaseAdapter({
+	// 	url: SUPABASE_URL,
+	// 	secret: SUPABASE_KEY,
+	//   }),
 });

@@ -1,11 +1,14 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
+	import type { PledgeData } from "$lib/types/pledge.type";
 	import { page } from "$app/stores";
-	$: session = $page.data.session;
-	import Login from "../Login.svelte";
+	
+	import SignInButton from "$lib/SignInButton.svelte";
 
 	export let data: PageData;
-	const pledge = data.pledge;
+	const pledge = data.pledge as PledgeData;
+
+	$: session = $page.data.session;
 
 	function share() {
 		if (navigator.share) {
@@ -18,11 +21,7 @@
 			alert("Sharing not supported :(");
 		}
 	}
-
-	const senddata = JSON.parse(data.session?.user_google_info || "{}");
 </script>
-
-<Login userdata={senddata} />
 
 <h1>{pledge.name}</h1>
 {#if pledge.description}
@@ -46,16 +45,12 @@
 	at {pledge.deadline.toLocaleTimeString()}
 </h3>
 
-{#if data.session?.user_google_info == undefined}
-	<p>gotta log in to pledge!</p>
-{:else}
+{#if session}
 	<form method="POST" action="?/commit">
 		<fieldset>
 			<legend>Commit to this event</legend>
 			<input type="hidden" name="slug" value={pledge.slug} />
-			<input type="hidden" name="user_id" value={senddata["name"]} />
-			<input type="hidden" name="user_email" value={senddata["email"]} />
-			{#if !pledge.committed.includes(senddata["email"])}
+			{#if !pledge.committed.includes(session.user.email)}
 				<p style="font-weight: normal;">
 					By committing to this event, you promise to actually do the collective action if {pledge.num_required}
 					people pledge to as well.
@@ -72,6 +67,9 @@
 			{/if}
 		</fieldset>
 	</form>
+{:else}
+	<p>Sign in to pledge!</p>
+	<SignInButton />
 {/if}
 
 <button on:click={share}>Share</button>

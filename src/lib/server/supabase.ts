@@ -1,10 +1,7 @@
-const SUPABASE_URL = "https://dxxqsxgjhtktuubksoro.supabase.co";
-const SUPABASE_KEY =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4eHFzeGdqaHRrdHV1Ymtzb3JvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzUyODk5ODYsImV4cCI6MTk5MDg2NTk4Nn0.TbSwx-9fy_zVUOdP9xNgjGYkuOeGZFFXt5LB0PYL2uw";
-
+import { SUPABASE_URL, SUPABASE_KEY } from "$env/static/private";
 import { createClient } from "@supabase/supabase-js";
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
-import type { PledgeData } from "../../types/pledge.type";
+import type { PledgeData } from "$lib/types/pledge.type";
 
 export const getPledges = async () => {
 	let { data: pledges, error } = await db.from("pledges").select();
@@ -18,7 +15,7 @@ export const getPledges = async () => {
 export const getPledge = async (slug: string) => {
 	const { data, error } = await db.from("pledges").select().eq("slug", slug).limit(1).maybeSingle();
 	if (error) throw new Error(error.message);
-	data.committed = eval(data.committed);
+	if (!data) return null;
 	return { ...data, deadline: new Date(data.resolution * 1000) } as PledgeData;
 };
 
@@ -44,9 +41,11 @@ export const insertRow = async (
 };
 
 export const addPledge = async (email: string, slug: string) => {
-	let pledge: PledgeData = await getPledge(slug);
+	let pledge = await getPledge(slug);
+	if (!pledge) throw new Error("Pledge does not exist");
+	let current_committed = pledge.committed;
 
-	let current_committed: string[] = eval(pledge.committed);
+	if (current_committed.includes(email)) return;
 
 	current_committed.push(email);
 

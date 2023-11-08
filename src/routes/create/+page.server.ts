@@ -1,4 +1,4 @@
-import type { Actions } from "./$types";
+import type { Actions, PageServerLoad } from "./$types";
 import { fail, redirect } from "@sveltejs/kit";
 import { insertRow, slugExists } from "$lib/server/supabase";
 
@@ -7,12 +7,12 @@ const generateSlug = async (name: string) => {
 		.toLowerCase()
 		.trim()
 		.normalize("NFKD")
-		.replace(/\p{Diacritic}/gu, "")
-		.replace(/[^\w- ]+/g, "")
-		.replace(/ +/g, "-") // Replace spaces with dashes
-		.replace(/-+/g, "-") // Remove repeated dashes
-		.substring(0, 40)
-		.replace(/-$/, ""); // Remove terminal dash
+		.replace(/\p{Diacritic}/gu, "") // Remove accents
+		.replace(/[^\w- ]+/g, "")       // Remove non-word chars
+		.replace(/ +/g, "-")            // Replace spaces with dashes
+		.replace(/-+/g, "-")            // Remove repeated dashes
+		.substring(0, 40)               // Trim to 40 chars
+		.replace(/-$/, "");             // Remove terminal dash
 	if (await slugExists(slugged)) {
 		return `${slugged}-${crypto.randomUUID().substring(24)}`;
 	} else {
@@ -20,8 +20,20 @@ const generateSlug = async (name: string) => {
 	}
 };
 
+export const load = (async ({ locals }) => {
+	const session = await locals.getSession();
+	if (!session) {
+		throw redirect(303, "/auth/signin");
+	}
+}) satisfies PageServerLoad;
+
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ locals, request }) => {
+		const session = await locals.getSession();
+		if (!session) {
+			throw redirect(303, "/auth/signin");
+		}
+
 		const data = await request.formData();
 
 		const name = data.get("evname")?.toString();

@@ -11,7 +11,7 @@
 		"strict": true,
 		"types": ["svelte"]
 	},
-	"include": ["./**/*"],
+	"include": ["./**/*", ".svelte-kit/ambient.d.ts"],
 	"exclude": ["./plugins/**/*", "./typings/**/*", "./built/**/*"]
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//
