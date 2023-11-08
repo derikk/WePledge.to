@@ -15,26 +15,39 @@
 			navigator.share({
 				title: pledge.name,
 				text: `Join me and pledge to "${pledge.name}"!`,
+				title: pledge.name,
+				text: `Join me and pledge to "${pledge.name}"!`,
 				url: $page.url.toString()
 			});
 		} else {
 			alert("Sharing not supported :(");
 		}
 	}
+
+	let sexporn = "69";
 </script>
 
 <h1>{pledge.name}</h1>
 {#if pledge.description}
 	<p>{pledge.description}</p>
 {/if}
+<h1>{pledge.name}</h1>
+{#if pledge.description}
+	<p>{pledge.description}</p>
+{/if}
 
+<meter value={pledge.committed.length} min="0" max={pledge.num_required} />
 <meter value={pledge.committed.length} min="0" max={pledge.num_required} />
 
 <details>
 	<summary>
 		<h3>People committed: {pledge.committed.length}/{pledge.num_required}</h3>
 	</summary>
+	<summary>
+		<h3>People committed: {pledge.committed.length}/{pledge.num_required}</h3>
+	</summary>
 	<ol>
+		{#each pledge.committed as pledger}
 		{#each pledge.committed as pledger}
 			<li>{pledger}</li>
 		{/each}

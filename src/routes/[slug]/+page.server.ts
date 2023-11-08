@@ -4,7 +4,10 @@ import { getPledge, addPledge } from "$lib/server/supabase";
 
 export const load = (async ({ params }) => {
 	const pledge = await getPledge(params.slug);
+	const pledge = await getPledge(params.slug);
 	if (!pledge) throw error(404);
+
+	return { pledge };
 
 	return { pledge };
 }) satisfies PageServerLoad;

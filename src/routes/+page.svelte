@@ -33,3 +33,4 @@
 	<p style="color: red">{error.message}</p>
 {/await}
 <Footer />
+<Login userdata={data}/>
