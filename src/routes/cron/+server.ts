@@ -27,7 +27,7 @@ export const GET: RequestHandler = async () => {
 					Now you have to do it :)
 									
 					Thank you,
-					Derik + Andrew ♥`.replace('\t', '')
+					Derik + Andrew ♥`.replaceAll('\t', '')
 				});
 			}
 		} else if (pledge.deadline < now) { // If deadline has passed without enough pledges
@@ -43,7 +43,7 @@ export const GET: RequestHandler = async () => {
 					Details: https://wepledge.to/${pledge.slug}
 														
 					Thank you,
-					Derik + Andrew ♥`.replace('\t', '')
+					Derik + Andrew ♥`.replaceAll('\t', '')
 				});
 			} else {
 				for (const email of pledge.committed) {
@@ -56,7 +56,7 @@ export const GET: RequestHandler = async () => {
 						Details: https://wepledge.to/${pledge.slug}
 															
 						Thank you,
-						Derik + Andrew ♥`.replace('\t', '')
+						Derik + Andrew ♥`.replaceAll('\t', '')
 					});
 				}
 			}
