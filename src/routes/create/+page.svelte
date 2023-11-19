@@ -20,6 +20,7 @@
 		name="evname"
 		value={form?.name ?? ""}
 		placeholder="Go running at 7 am"
+		maxlength="100"
 		required
 	/>
 	<br />
@@ -40,7 +41,8 @@
 		id="deadline"
 		name="deadline"
 		step="60"
-		value={form?.deadline ?? nextWeek.toISOString().split("T")[0] + "T23:59"}
+		min={today.toLocaleDateString("sv") + "T00:00"}
+		value={form?.deadline ?? nextWeek.toLocaleDateString("sv") + "T23:59"}
 		required
 	/>
 	<br />

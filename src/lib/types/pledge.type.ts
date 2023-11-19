@@ -5,4 +5,5 @@ export type PledgeData = {
 	deadline: Date;
 	num_required: number;
 	committed: string[];
+	completed: boolean;
 };
