@@ -1,12 +1,10 @@
 <script lang="ts">
-	import type { PageData } from "./$types";
-	import type { PledgeData } from "$lib/types/pledge.type";
 	import { page } from "$app/stores";
-	
+
 	import SignInButton from "$lib/SignInButton.svelte";
 
-	export let data: PageData;
-	const pledge = data.pledge as PledgeData;
+	export let data;
+	const pledge = data.pledge;
 
 	$: session = $page.data.session;
 
@@ -42,7 +40,7 @@
 </details>
 <h3>
 	Must commit by {pledge.deadline.toLocaleDateString()}
-	at {pledge.deadline.toLocaleTimeString()}
+	at {pledge.deadline.toLocaleTimeString([], { timeStyle: "short" })}
 </h3>
 
 {#if session}

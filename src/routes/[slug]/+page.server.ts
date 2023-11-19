@@ -1,6 +1,6 @@
 import { error, redirect } from "@sveltejs/kit";
 import type { PageServerLoad, Actions } from "./$types";
-import { getPledge, addPledge } from "$lib/server/supabase";
+import { getPledge, signPledge } from "$lib/server/supabase";
 
 export const load = (async ({ params }) => {
 	const pledge = await getPledge(params.slug);
@@ -15,7 +15,7 @@ export const actions = {
 
 		if (email) {
 			// Submit pledge to DB
-			addPledge(email, params.slug);
+			await signPledge(params.slug, email);
 		} else {
 			// Redirect to login
 			throw redirect(303, "/auth/signin");

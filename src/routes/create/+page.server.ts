@@ -1,6 +1,6 @@
 import type { Actions, PageServerLoad } from "./$types";
 import { fail, redirect } from "@sveltejs/kit";
-import { insertRow, slugExists } from "$lib/server/supabase";
+import { createPledge, slugExists } from "$lib/server/supabase";
 
 const generateSlug = async (name: string) => {
 	const slugged = name
@@ -37,27 +37,24 @@ export const actions = {
 		const data = await request.formData();
 
 		const name = data.get("evname")?.toString();
+		const description = data.get("description") as string;
+		const deadline = data.get("deadline") as string;
+		const num_required = Number(data.get("minNumber"));
 
-		// TODO: Proper form validation
 		if (!name) {
-			return fail(400, { error: "Name is required" });
+			return fail(400, { description, num_required, deadline, error: "Name is required" });
+		} else if (name.length > 100) {
+			return fail(400, { description, num_required, deadline, error: "Name must be less than 100 characters" });
 		}
-
 		const slug = await generateSlug(name);
 
-		const description = data.get("description")?.toString();
-
-		const deadline = data.get("deadline")?.toString();
 		if (!deadline) {
-			return fail(400, { name, description, error: "Deadline is required" });
+			return fail(400, { name, description, num_required, error: "Deadline is required" });
+		} else if (new Date(deadline) < new Date()) {
+			return fail(400, { name, description, num_required, error: "Deadline must be in the future" });
 		}
+		const deadlineUTC = new Date(deadline).toISOString().slice(0, 17) + "59Z";
 
-		const resolution = Math.floor(new Date(deadline).getTime() / 1000 + 59);
-		if (resolution < Date.now() / 1000) {
-			return fail(400, { name, description, error: "Deadline must be in the future" });
-		}
-
-		const num_required = Number(data.get("minNumber"));
 		if (!num_required) {
 			return fail(400, { name, description, deadline, error: "Min number is required" });
 		} else if (num_required < 2) {
@@ -71,7 +68,7 @@ export const actions = {
 			});
 		}
 
-		const { error } = await insertRow(name, slug, description, resolution, num_required);
+		const { error } = await createPledge(name, slug, description, deadlineUTC, num_required);
 		if (error) {
 			return fail(400, { error });
 		} else {
