@@ -40,19 +40,29 @@ export const createPledge = async (
 	});
 };
 
-export const signPledge = async (slug: string, email: string) => {
+export const signPledge = async (slug: string, email: string, name: string) => {
 	const pledge = await getPledge(slug);
 	if (!pledge) throw new Error("Pledge does not exist");
 	const current_committed = pledge.committed;
+	const current_committed_names = pledge.committed_names;
 
 	if (current_committed.includes(email)) return;
 
+	console.log("Current committed")
+	console.log(current_committed)
+	console.log("Names:")
+	console.log(current_committed_names)
+	console.log("Type of names:")
+	console.log(typeof current_committed_names)
+
 	current_committed.push(email);
+	current_committed_names.push(name);
 
 	return await db
 		.from("pledges")
 		.update({
-			committed: current_committed
+			committed: current_committed,
+			committed_names: current_committed_names
 		})
 		.eq("slug", slug);
 };
