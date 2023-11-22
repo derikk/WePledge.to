@@ -32,6 +32,7 @@
 		"@auth/supabase-adapter": "^0.1.6",
 		"@auth/sveltekit": "^0.3.11",
 		"@supabase/supabase-js": "^2.38.4",
+		"axios": "^1.6.2",
 		"resend": "^2.0.0"
 	}
 }
