@@ -21,6 +21,8 @@
 	}
 </script>
 
+<a href="/">back</a>
+
 <h1>{pledge.name}</h1>
 {#if pledge.description}
 	<p>{pledge.description}</p>
@@ -33,7 +35,7 @@
 		<h3>People committed: {pledge.committed.length}/{pledge.num_required}</h3>
 	</summary>
 	<ol>
-		{#each pledge.committed as pledger}
+		{#each pledge.committed_names as pledger}
 			<li>{pledger}</li>
 		{/each}
 	</ol>

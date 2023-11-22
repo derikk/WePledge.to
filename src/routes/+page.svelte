@@ -17,7 +17,7 @@
 </script>
 
 {#if session}
-	<p>Logged in as {session.user.email}</p>
+	<p>Logged in as {session.user.name}</p>
 	<button on:click={() => signOut("google")}>Sign out</button>
 {:else}
 	<SignInButton />
