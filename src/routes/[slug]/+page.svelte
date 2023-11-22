@@ -21,6 +21,8 @@
 	}
 </script>
 
+<a href="/">back</a>
+
 <h1>{pledge.name}</h1>
 {#if pledge.description}
 	<p>{pledge.description}</p>
