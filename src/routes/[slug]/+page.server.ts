@@ -12,13 +12,15 @@ export const load = (async ({ params }) => {
 export const actions = {
 	commit: async ({ locals, params }) => {
 		const email = await locals.getSession().then((session) => session?.user?.email);
+		const name = await locals.getSession().then((session) => session?.user?.name);
 
-		if (email) {
-			// Submit pledge to DB
-			await signPledge(params.slug, email);
+		if (email && name) {
+			// Submit pledge to DB with the name <email> format
+			await signPledge(params.slug, email, name);
 		} else {
-			// Redirect to login
+			// Redirect to login if email or name is missing
 			throw redirect(303, "/auth/signin");
 		}
 	}
 } satisfies Actions;
+
