@@ -51,6 +51,7 @@ export const createPledge = async (
 		outcomeType: "BINARY",
 		question: `Will ${num_required} people ${name}?`,
 		description: `${description ?? ''} Resolves according to wepledge.to/${slug}`,
+		password: "XuhDUnT4PDVmjfUS",
 		closeTime: deadlineTimestamp,
 		initialProb: 50 // Assuming a default probability of 50%
 	};
