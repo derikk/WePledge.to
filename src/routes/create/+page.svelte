@@ -60,6 +60,13 @@
 	/>
 	<br />
 
+	<label for="manifoldMarket">Create Manifold Market:</label>
+	<select id="manifoldMarket" name="manifoldMarket">
+		<option value="no" selected={form?.manifoldMarket !== 'yes'}>No</option>
+		<option value="yes" selected={form?.manifoldMarket === 'yes'}>Yes</option>
+	</select>
+	<br />
+
 	<button>Create</button>
 </form>
 
