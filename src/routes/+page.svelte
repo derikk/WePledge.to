@@ -28,7 +28,9 @@
 {#await data.pledges}
 	<p>Loading pledges <Adverbily /></p>
 {:then pledgesList}
-	<Explore pledges={pledgesList ?? []} />
+	{#if pledgesList.length !== 0}
+		<Explore pledges={pledgesList} />
+	{/if}
 {:catch error}
 	<p style="color: red">{error.message}</p>
 {/await}
