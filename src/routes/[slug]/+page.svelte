@@ -74,6 +74,13 @@
 
 <button on:click={share}>Share</button>
 
+<br><br><br>
+
+<!-- If the manifold_slug is not null and not an empty string, display the manifold embed -->
+{#if pledge.manifold_slug && pledge.manifold_slug !== ""}
+	<iframe src="https://manifold.markets/embed/WePledge/{pledge.manifold_slug}" title="Will 8 people {pledge.name}?" frameborder="0" width="600" height="300"></iframe>
+{/if}
+
 <style>
 	meter {
 		width: 100%;

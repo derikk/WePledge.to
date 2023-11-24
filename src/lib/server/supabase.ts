@@ -1,4 +1,4 @@
-import { SUPABASE_URL, SUPABASE_KEY } from "$env/static/private";
+import { SUPABASE_URL, SUPABASE_KEY, MANIFOLD_KEY } from "$env/static/private";
 import { createClient } from "@supabase/supabase-js";
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 import type { PledgeData } from "$lib/types/pledge.type";
@@ -33,31 +33,27 @@ export const createPledge = async (
 	deadline: string,
 	num_required: number
 ) => {
-	// Insert into database
-	const insertResult = await db.from("pledges").insert({
-		name,
-		slug,
-		description,
-		deadline,
-		num_required
-	});
-
 	// Format the deadline to a Unix timestamp in milliseconds
 	const deadlineDate = new Date(deadline);
 	const deadlineTimestamp = deadlineDate.getTime();
+
+	console.log("The manifold key is " + MANIFOLD_KEY)
 
 	// Prepare the data for the Manifold API request
 	const apiData = {
 		outcomeType: "BINARY",
 		question: `Will ${num_required} people ${name}?`,
 		description: `${description ?? ''} Resolves according to wepledge.to/${slug}`,
-		password: "XuhDUnT4PDVmjfUS",
+		password: MANIFOLD_KEY,
 		closeTime: deadlineTimestamp,
 		initialProb: 50 // Assuming a default probability of 50%
 	};
 
 	// Manifold API URL
 	const apiUrl: string = 'https://andrew.fi/wepledge/create_market.php';
+
+	let manifold_id: string = ''
+	let manifold_slug: string = ''
 
 	// Make the API request
 	try {
@@ -68,9 +64,22 @@ export const createPledge = async (
 			}
 		});
 		console.log('API Response:', response.data);
+		manifold_id = response.data.id
+		manifold_slug = response.data.slug
 	} catch (error) {
 		console.error('API Request Error:', error);
 	}
+
+	// Insert into database
+	const insertResult = await db.from("pledges").insert({
+		name,
+		slug,
+		description,
+		deadline,
+		num_required,
+		manifold_id,
+		manifold_slug
+	});
 
 	return insertResult;
 };
