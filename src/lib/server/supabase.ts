@@ -45,19 +45,18 @@ export const createPledge = async (
 		const apiData = {
 			outcomeType: "BINARY",
 			question: `Will ${num_required} people ${name}?`,
-			description: `${description ?? ''} Resolves according to wepledge.to/${slug}`,
-			password: MANIFOLD_KEY,
+			description: `${description ?? ''} Resolves according to https://wepledge.to/${slug}`,
 			closeTime: deadlineTimestamp,
 			initialProb: 50
 		};
 
-		const apiUrl: string = 'https://andrew.fi/wepledge/create_market.php';
+		const apiUrl = "https://manifold.markets/api/v0/market";
 
 		try {
 			const response = await axios.post(apiUrl, apiData, {
 				headers: {
-					'Content-Type': 'application/json'
-					// Include any other necessary headers
+					'Content-Type': 'application/json',
+					'Authorization': `Key ${MANIFOLD_KEY}`
 				}
 			});
 			console.log('API Response:', response.data);
