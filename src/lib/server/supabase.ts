@@ -45,7 +45,7 @@ export const createPledge = async (
 		const apiData = {
 			outcomeType: "BINARY",
 			question: `Will ${num_required} people ${name}?`,
-			description: `${description ?? ''} Resolves according to https://wepledge.to/${slug}`,
+			descriptionMarkdown: `${description ?? ''}\nResolves according to [wepledge.to/${slug}](https://wepledge.to/${slug})`,
 			closeTime: deadlineTimestamp,
 			initialProb: 50
 		};
