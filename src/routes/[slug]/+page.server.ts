@@ -11,8 +11,8 @@ export const load = (async ({ params }) => {
 
 export const actions = {
 	commit: async ({ locals, params }) => {
-		const email = await locals.getSession().then((session) => session?.user?.email);
-		const name = await locals.getSession().then((session) => session?.user?.name);
+		const email = await locals.auth().then((session) => session?.user?.email);
+		const name = await locals.auth().then((session) => session?.user?.name);
 
 		if (email && name) {
 			// Submit pledge to DB with the name <email> format

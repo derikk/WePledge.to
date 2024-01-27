@@ -21,7 +21,7 @@ const generateSlug = async (name: string) => {
 };
 
 export const load = (async ({ locals }) => {
-	const session = await locals.getSession();
+	const session = await locals.auth();
 	if (!session) {
 		throw redirect(303, "/auth/signin");
 	}
@@ -29,7 +29,7 @@ export const load = (async ({ locals }) => {
 
 export const actions = {
 	default: async ({ locals, request }) => {
-		const session = await locals.getSession();
+		const session = await locals.auth();
 		if (!session) {
 			throw redirect(303, "/auth/signin");
 		}
