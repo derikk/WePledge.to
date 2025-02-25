@@ -13,7 +13,6 @@
 
 	// get google user data
 	$: session = $page.data.session;
-
 </script>
 
 {#if session}

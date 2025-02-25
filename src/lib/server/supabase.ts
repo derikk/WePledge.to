@@ -33,6 +33,7 @@ export const createPledge = async (
 	description: string | undefined,
 	deadline: string,
 	num_required: number,
+	anonymous: boolean,
 	createManifold: boolean
 ) => {
 	let manifold_id: string = ''
@@ -73,6 +74,7 @@ export const createPledge = async (
 		description,
 		deadline,
 		num_required,
+		anonymous,
 		manifold_id,
 		manifold_slug
 	});

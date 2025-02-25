@@ -7,6 +7,7 @@ export type PledgeData = {
 	committed: string[];
 	committed_names: string[];
 	completed: boolean;
+	anonymous: boolean;
 	manifold_id: string;
 	manifold_slug: string;
 };

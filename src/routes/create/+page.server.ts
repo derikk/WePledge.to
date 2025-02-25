@@ -21,7 +21,7 @@ const generateSlug = async (name: string) => {
 };
 
 export const load = (async ({ locals }) => {
-	const session = await locals.getSession();
+	const session = await locals.auth();
 	if (!session) {
 		throw redirect(303, "/auth/signin");
 	}
@@ -29,7 +29,7 @@ export const load = (async ({ locals }) => {
 
 export const actions = {
 	default: async ({ locals, request }) => {
-		const session = await locals.getSession();
+		const session = await locals.auth();
 		if (!session) {
 			throw redirect(303, "/auth/signin");
 		}
@@ -40,8 +40,8 @@ export const actions = {
 		const description = data.get("description") as string;
 		const deadline = data.get("deadline") as string;
 		const num_required = Number(data.get("minNumber"));
-		const manifoldMarket = data.get("manifoldMarket") as string;
-		const createManifold: boolean = manifoldMarket.toLowerCase() === "yes";
+		const anonymous: boolean = (data.get("anonymous") as string).toLowerCase() === "yes";
+		const createManifold: boolean = (data.get("manifoldMarket") as string).toLowerCase() === "yes";
 
 		if (!name) {
 			return fail(400, { description, num_required, deadline, error: "Name is required" });
@@ -70,7 +70,7 @@ export const actions = {
 			});
 		}
 
-		const { error } = await createPledge(name, slug, description, deadlineUTC, num_required, createManifold);
+		const { error } = await createPledge(name, slug, description, deadlineUTC, num_required, anonymous, createManifold);
 		if (error) {
 			return fail(400, { error });
 		} else {
