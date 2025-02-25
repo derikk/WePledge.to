@@ -1,19 +1,19 @@
 <script lang="ts">
-	import { page } from "$app/stores";
+	import { page } from "$app/state";
 
 	import SignInButton from "$lib/SignInButton.svelte";
 
-	export let data;
+	let { data } = $props();
 	const pledge = data.pledge;
 
-	$: session = $page.data.session;
+	let session = $derived(page.data.session);
 
 	function share() {
 		if (navigator.share) {
 			navigator.share({
 				title: pledge.name,
 				text: `Join me and pledge to "${pledge.name}"!`,
-				url: $page.url.toString()
+				url: page.url.toString()
 			});
 		} else {
 			alert("Sharing not supported :(");
@@ -28,7 +28,7 @@
 	<p>{pledge.description}</p>
 {/if}
 
-<meter value={pledge.committed.length} min="0" max={pledge.num_required} />
+<meter value={pledge.committed.length} min="0" max={pledge.num_required}></meter>
 
 <details>
 	<summary>
@@ -76,13 +76,13 @@
 	<SignInButton />
 {/if}
 
-<button on:click={share}>Share</button>
+<button onclick={share}>Share</button>
 
 <br><br><br>
 
 <!-- If the manifold_slug is not null and not an empty string, display the manifold embed -->
 {#if pledge.manifold_slug}
-	<iframe src="https://manifold.markets/embed/WePledge/{pledge.manifold_slug}" frameborder="0" width="600" height="300"></iframe>
+	<iframe src="https://manifold.markets/embed/WePledge/{pledge.manifold_slug}" title="Manifold prediction market" frameborder="0" width="600" height="300"></iframe>
 {/if}
 
 <style>

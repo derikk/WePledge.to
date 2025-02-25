@@ -11,7 +11,7 @@
 	{/if}
 	<p>
 		Pledges: <b>{pledge.committed.length}/{pledge.num_required}</b>
-		<meter value={pledge.committed.length} min="0" max={pledge.num_required} />
+		<meter value={pledge.committed.length} min="0" max={pledge.num_required}></meter>
 	</p>
 	<p>Deadline: {pledge.deadline.toLocaleDateString()}</p>
 	<a href="/{pledge.slug}">More ›</a>

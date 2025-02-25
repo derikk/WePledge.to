@@ -9,9 +9,9 @@ import {
 import { SupabaseAdapter } from "@auth/supabase-adapter";
 
 export const handle = SvelteKitAuth({
-	providers: [GoogleProvider({ clientId: GOOGLE_CLIENT_ID, clientSecret: GOOGLE_CLIENT_SECRET })],
+	providers: [GoogleProvider({ clientId: GOOGLE_CLIENT_ID, clientSecret: GOOGLE_CLIENT_SECRET })]
 	// adapter: SupabaseAdapter({
 	// 	url: SUPABASE_URL,
 	// 	secret: SUPABASE_KEY,
 	//   }),
-});
+}).handle;
