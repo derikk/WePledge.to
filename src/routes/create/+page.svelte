@@ -60,6 +60,13 @@
 	/>
 	<br />
 
+	<label for="anonymous">Keep pledges anonymous until threshold met:</label>
+	<select id="anonymous" name="anonymous">
+		<option value="no" selected={form?.anonymous !== 'yes'}>No</option>
+		<option value="yes" selected={form?.anonymous === 'yes'}>Yes</option>
+	</select>
+	<br />
+
 	<label for="manifoldMarket">Create Manifold Market:</label>
 	<select id="manifoldMarket" name="manifoldMarket">
 		<option value="no" selected={form?.manifoldMarket !== 'yes'}>No</option>

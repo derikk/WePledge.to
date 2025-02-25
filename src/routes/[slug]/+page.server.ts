@@ -6,6 +6,13 @@ export const load = (async ({ params }) => {
 	const pledge = await getPledge(params.slug);
 	if (!pledge) throw error(404);
 
+	// Redact the emails and names from the pledge data sent to client
+	// TODO: use `committed_count` instead of length of `committed` array
+	pledge.committed = new Array(pledge.committed.length).fill("");
+	if (pledge.anonymous && pledge.committed.length < pledge.num_required) {
+		pledge.committed_names = [];
+	}
+
 	return { pledge };
 }) satisfies PageServerLoad;
 
