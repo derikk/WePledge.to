@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { signIn } from "@auth/sveltekit/client";
-	export let provider = "google";
+	let { provider = "google" } = $props();
 </script>
 
-<button on:click={() => signIn(provider)}>Sign in</button>
+<button onclick={() => signIn(provider)}>Sign in</button>

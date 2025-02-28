@@ -333,7 +333,7 @@
 		"zestfully",
 		"zestily"
 	];
-	export let adverbily = adverbs[Math.floor(Math.random() * adverbs.length)];
+	let { adverbily = adverbs[Math.floor(Math.random() * adverbs.length)] } = $props();
 </script>
 
 {adverbily}

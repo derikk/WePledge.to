@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PledgeData } from "./types/pledge.type";
 
-	export let pledge: PledgeData;
+	let { pledge }: { pledge: PledgeData } = $props();
 </script>
 
 <fieldset>

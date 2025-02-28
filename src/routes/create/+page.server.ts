@@ -43,36 +43,36 @@ export const actions = {
 		const anonymous: boolean = (data.get("anonymous") as string).toLowerCase() === "yes";
 		const createManifold: boolean = (data.get("manifoldMarket") as string).toLowerCase() === "yes";
 
+		const formData = { name, description, num_required, deadline, anonymous, createManifold };
+
 		if (!name) {
-			return fail(400, { description, num_required, deadline, error: "Name is required" });
+			return fail(400, { ...formData, error: "Name is required" });
 		} else if (name.length > 100) {
-			return fail(400, { description, num_required, deadline, error: "Name must be less than 100 characters" });
+			return fail(400, { ...formData, error: "Name must be less than 100 characters" });
 		}
 		const slug = await generateSlug(name);
 
 		if (!deadline) {
-			return fail(400, { name, description, num_required, error: "Deadline is required" });
+			return fail(400, { ...formData, error: "Deadline is required" });
 		} else if (new Date(deadline) < new Date()) {
-			return fail(400, { name, description, num_required, error: "Deadline must be in the future" });
+			return fail(400, { ...formData, error: "Deadline must be in the future" });
 		}
 		const deadlineUTC = new Date(deadline).toISOString().slice(0, 17) + "59Z";
 
 		if (!num_required) {
-			return fail(400, { name, description, deadline, error: "Min number is required" });
+			return fail(400, { ...formData, error: "Min number is required" });
 		} else if (num_required < 2) {
-			return fail(400, { name, description, deadline, error: "Min number must be at least 2" });
+			return fail(400, { ...formData, error: "Min number must be at least 2" });
 		} else if (num_required > 999999) {
 			return fail(400, {
-				name,
-				description,
-				deadline,
+				...formData,
 				error: "Min number must be less than 1 million (contact sales to run a million-man march)"
 			});
 		}
 
 		const { error } = await createPledge(name, slug, description, deadlineUTC, num_required, anonymous, createManifold);
 		if (error) {
-			return fail(400, { error });
+			return fail(400, { ...formData, error: "A database error occurred; please let us know if this keeps happening." });
 		} else {
 			throw redirect(303, `/${slug}`);
 		}

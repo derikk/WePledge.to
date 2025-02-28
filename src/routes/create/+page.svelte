@@ -3,7 +3,7 @@
 	export const nextWeek = new Date();
 	nextWeek.setDate(today.getDate() + 7);
 
-	export let form: any;
+	let { form } = $props();
 </script>
 
 <h2>Create an event</h2>
@@ -32,7 +32,7 @@
 		value={form?.description ?? ""}
 		rows="7"
 		placeholder="Let's run to Oakland Thursday morning! I'll do it if five people join me."
-	/>
+	></textarea>
 	<br />
 
 	<label for="deadline">Deadline</label>
@@ -62,15 +62,15 @@
 
 	<label for="anonymous">Keep pledges anonymous until threshold met:</label>
 	<select id="anonymous" name="anonymous">
-		<option value="no" selected={form?.anonymous !== 'yes'}>No</option>
-		<option value="yes" selected={form?.anonymous === 'yes'}>Yes</option>
+		<option value="no" selected={!form?.anonymous}>No</option>
+		<option value="yes" selected={form?.anonymous}>Yes</option>
 	</select>
 	<br />
 
 	<label for="manifoldMarket">Create Manifold Market:</label>
 	<select id="manifoldMarket" name="manifoldMarket">
-		<option value="no" selected={form?.manifoldMarket !== 'yes'}>No</option>
-		<option value="yes" selected={form?.manifoldMarket === 'yes'}>Yes</option>
+		<option value="no" selected={!form?.createManifold}>No</option>
+		<option value="yes" selected={form?.createManifold}>Yes</option>
 	</select>
 	<br />
 

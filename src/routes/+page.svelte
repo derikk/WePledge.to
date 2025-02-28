@@ -5,19 +5,19 @@
 	import Footer from "$lib/Footer.svelte";
 	import Adverbily from "$lib/Adverbily.svelte";
 
-	export let data: PageData;
+	let { data }: { data: PageData } = $props();
 
-	import { page } from "$app/stores";
+	import { page } from "$app/state";
 	import SignInButton from "$lib/SignInButton.svelte";
 	import { signOut } from "@auth/sveltekit/client";
 
 	// get google user data
-	$: session = $page.data.session;
+	let session = $derived(page.data.session);
 </script>
 
 {#if session}
 	<p>Logged in as {session.user.name}</p>
-	<button on:click={() => signOut("google")}>Sign out</button>
+	<button onclick={() => signOut()}>Sign out</button>
 {:else}
 	<SignInButton />
 {/if}
