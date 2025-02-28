@@ -2,20 +2,20 @@
 	"name": "wepledge.to",
 	"version": "0.0.1",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
+		"format": "prettier --write .",
+		"lint": "prettier --check . && eslint ."
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^4.0.0",
 		"@sveltejs/kit": "^2.17.2",
-		"@typescript-eslint/eslint-plugin": "^8.25.0",
-		"@typescript-eslint/parser": "^8.25.0",
+		"@tailwindcss/vite": "^4.0.0",
 		"eslint": "^9.21.0",
 		"eslint-config-prettier": "^10.0.0",
 		"eslint-plugin-svelte": "^2.45.1",
@@ -23,11 +23,11 @@
 		"prettier-plugin-svelte": "^3.2.6",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
-		"tslib": "^2.6.2",
+		"tailwindcss": "^4.0.0",
 		"typescript": "^5.5.0",
+		"typescript-eslint": "^8.20.0",
 		"vite": "^6.0.0"
 	},
-	"type": "module",
 	"dependencies": {
 		"@auth/supabase-adapter": "^1.7.4",
 		"@auth/sveltekit": "^1.7.4",
